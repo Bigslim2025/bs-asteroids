@@ -24,6 +24,12 @@ class Player(CircleShape):
     def rotate(self, dt):
         # Increase the rotation on the player axis by the players turning speed times delta time
         self.rotation += constants.PLAYER_TURN_SPEED * dt
+    
+    def move(self, dt):
+        # "This is a course on programming, not vector math, so we've done the math for you. 
+        # All those words boil down to these two lines of code:"
+        forward = pygame.Vector2(0, 1).rotate(self.rotation) # calculates position and rotation
+        self.position += forward * constants.PLAYER_SPEED * dt # updates position on screen
 
     def update(self, dt):
         # sub-classes must override
@@ -33,3 +39,7 @@ class Player(CircleShape):
             self.rotate(dt)  
         elif keys[pygame.K_d]:
             self.rotate(-dt)
+        elif keys[pygame.K_w]:
+            self.move(dt)
+        elif keys[pygame.K_s]:
+            self.move(-dt)
