@@ -10,10 +10,16 @@ def main():
     print(f"Screen height: {constants.SCREEN_HEIGHT}") # shows screen height
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # sets a new GUI window
 
-    # Draws the game onto screen
-    while True:
-        pygame.display.flip()
+    # Creates a delta clock for capping the FPS
+    delta_clock = pygame.time.Clock()
+    dt = 0
 
+    # Draws the game onto screen and stores the delta clock value onto a variable during runtime
+    while True:
+        pygame.display.flip() # displays a window with values declared into constats.py
+        dt = delta_clock.tick(60) # caps the framerate to 60
+        dt /= 1000 # converts it to miliseconds
+        
         # Event Handling
         # Makes the window close button work
         for event in pygame.event.get():
