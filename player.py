@@ -21,6 +21,15 @@ class Player(CircleShape):
         # sub-classes must override
         pygame.draw.polygon(screen, pygame.Color("White"), self.triangle(), 2)
 
+    def rotate(self, dt):
+        # Increase the rotation on the player axis by the players turning speed times delta time
+        self.rotation += constants.PLAYER_TURN_SPEED * dt
+
     def update(self, dt):
         # sub-classes must override
-        pass
+        keys = pygame.key.get_pressed()
+        
+        if keys[pygame.K_a]:
+            self.rotate(dt)  
+        elif keys[pygame.K_d]:
+            self.rotate(-dt)

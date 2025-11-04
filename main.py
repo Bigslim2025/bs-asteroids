@@ -14,17 +14,18 @@ def main():
     screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)) 
     # Creates a Player instance and calls for its rendering in the screen
     player_instance = player.Player(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2)
-
     # Creates a delta clock for capping the FPS
     delta_clock = pygame.time.Clock()
     dt = 0
 
     # Draws the game onto screen and stores the delta clock value onto a variable during runtime
     while True:
-        player_instance.draw(screen)
-        pygame.display.flip() # displays a window with values declared into constats.py
         dt = delta_clock.tick(60) # caps the framerate to 60
         dt /= 1000 # converts it to miliseconds
+        player_instance.update(dt) # hooks the update method into the loop, uses the player instance
+        screen.fill("black") # clears the trail from past frames
+        player_instance.draw(screen) # renders the player on the screen each frame, uses the player instance
+        pygame.display.flip() # displays a window with values declared into 'constats.py'
         
         # Event Handling
         # Makes the window close button work
