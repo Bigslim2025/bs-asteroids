@@ -2,6 +2,7 @@
 import pygame # imports pygame module
 import constants # imports constants module
 import player # imports player module
+from logger import log_state
 
 
 def main():
@@ -33,8 +34,8 @@ def main():
         for d in drawable:
             d.draw(screen)
         pygame.display.flip() # displays a window with values declared into 'constats.py'
-        
-        # Event Handling
+        # Event Handling and Logging
+        log_state() # adds and prints a log file, added by lesson updates at boot.dev
         # Makes the window close button work
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
