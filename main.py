@@ -9,7 +9,11 @@ def main():
     print("Starting Asteroids!") # initialises message
     print(f"Screen width: {constants.SCREEN_WIDTH}") # shows screen width, needs 'constants.' to import
     print(f"Screen height: {constants.SCREEN_HEIGHT}") # shows screen height, needs 'constants.' to import
-    
+    # The Group class is a container that holds and manages objects
+    updatable = pygame.sprite.Group() # updatable objects are conteinarased here
+    drawable = pygame.sprite.Group() # drawable objects are conteinarased here
+    # Adds instances of a Player in the groups 'updatable' and 'drawable'
+    player.Player.containers = (updatable, drawable) # module.Class.function (try to remember!)
     # Sets a new GUI window
     screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)) 
     # Creates a Player instance and calls for its rendering in the screen
@@ -22,9 +26,12 @@ def main():
     while True:
         dt = delta_clock.tick(60) # caps the framerate to 60
         dt /= 1000 # converts it to miliseconds
-        player_instance.update(dt) # hooks the update method into the loop, uses the player instance
+        # Hooks the update method into the loop, uses Group in-built pygame class
+        updatable.update(dt) # added by feature-group branch, to be reviewed 
         screen.fill("black") # clears the trail from past frames
-        player_instance.draw(screen) # renders the player on the screen each frame, uses the player instance
+        # Renders the player on the screen each frame, iterates over Group in-built pygame class 
+        for d in drawable:
+            d.draw(screen)
         pygame.display.flip() # displays a window with values declared into 'constats.py'
         
         # Event Handling

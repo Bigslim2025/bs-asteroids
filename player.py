@@ -37,9 +37,9 @@ class Player(CircleShape):
         # Maps the keys, using pygame module defaults
         if keys[pygame.K_a]:
             self.rotate(dt)  
-        elif keys[pygame.K_d]:
+        if keys[pygame.K_d]:
             self.rotate(-dt)
-        elif keys[pygame.K_w]:
+        if keys[pygame.K_w]:
             self.move(dt)
-        elif keys[pygame.K_s]:
+        if keys[pygame.K_s]:
             self.move(-dt)
