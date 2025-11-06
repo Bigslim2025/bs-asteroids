@@ -34,7 +34,7 @@ class Player(CircleShape):
     def update(self, dt):
         # sub-classes must override
         keys = pygame.key.get_pressed()
-        
+        # Maps the keys, using pygame module defaults
         if keys[pygame.K_a]:
             self.rotate(dt)  
         elif keys[pygame.K_d]:
