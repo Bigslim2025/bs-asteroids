@@ -14,13 +14,13 @@ def main():
     print(f"Screen height: {constants.SCREEN_HEIGHT}") # shows screen height, needs 'constants.' to import
     # The Group class is a container that holds and manages objects
     updatable = pygame.sprite.Group() # updatable objects are conteinarased here
-    drawable = pygame.sprite.Group() # drawable objects are conteinarased here
-    asteroids = pygame.sprite.Group() #
+    drawable = pygame.sprite.Group() # drawable objects are conteinerised here
+    asteroids = pygame.sprite.Group() # asteroids objects are conteinerised here
 
-    #
+    # Adds instances of the Asteroid Field in the 'updatable' gorup
     asteroidfield.AsteroidField.containers = (updatable) 
 
-    #
+    # Adds instances of the Asteroids in the 'updatable', 'drawable' and 'asteroid' gorup
     asteroid.Asteroid.containers = (asteroids, updatable, drawable)
     
     # Adds instances of a Player in the groups 'updatable' and 'drawable'
@@ -33,7 +33,7 @@ def main():
     # Creates a delta clock for capping the FPS
     delta_clock = pygame.time.Clock()
     dt = 0
-
+    # Creates the Asteroid Field, spawns and move the asteroids in the screen (AsteroidField.py from boot.dev) 
     asteroidfield.AsteroidField()
 
     # Draws the game onto screen and stores the delta clock value onto a variable during runtime
