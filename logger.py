@@ -1,3 +1,5 @@
+# Code copied and pasted by the instructor 
+
 import inspect
 import json
 import math

@@ -2,6 +2,8 @@
 import pygame # imports pygame module
 import constants # imports constants module
 import player # imports player module
+import asteroid #
+import asteroidfield #
 from logger import log_state
 
 
@@ -13,8 +15,17 @@ def main():
     # The Group class is a container that holds and manages objects
     updatable = pygame.sprite.Group() # updatable objects are conteinarased here
     drawable = pygame.sprite.Group() # drawable objects are conteinarased here
+    asteroids = pygame.sprite.Group() #
+
+    #
+    asteroidfield.AsteroidField.containers = (updatable) 
+
+    #
+    asteroid.Asteroid.containers = (asteroids, updatable, drawable)
+    
     # Adds instances of a Player in the groups 'updatable' and 'drawable'
     player.Player.containers = (updatable, drawable) # module.Class.function (try to remember!)
+    
     # Sets a new GUI window
     screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)) 
     # Creates a Player instance and calls for its rendering in the screen
@@ -23,6 +34,8 @@ def main():
     delta_clock = pygame.time.Clock()
     dt = 0
 
+    asteroidfield.AsteroidField()
+
     # Draws the game onto screen and stores the delta clock value onto a variable during runtime
     while True:
         dt = delta_clock.tick(60) # caps the framerate to 60
@@ -30,6 +43,7 @@ def main():
         # Hooks the update method into the loop, uses Group in-built pygame class
         updatable.update(dt) # added by feature-group branch, to be reviewed 
         screen.fill("black") # clears the trail from past frames
+        # asteroidfield.AsteroidField()
         # Renders the player on the screen each frame, iterates over Group in-built pygame class 
         for d in drawable:
             d.draw(screen)
