@@ -1,10 +1,12 @@
 # this allows us to use code from the open-source pygame library throughout this file
+import sys # imports exit event
 import pygame # imports pygame module
 import constants # imports constants module
 import player # imports player module
-import asteroid #
-import asteroidfield #
+import asteroid # imports asteroid object module
+import asteroidfield # asteroid field module
 from logger import log_state
+from logger import log_event
 
 
 def main():
@@ -41,15 +43,26 @@ def main():
         dt = delta_clock.tick(60) # caps the framerate to 60
         dt /= 1000 # converts it to miliseconds
         # Hooks the update method into the loop, uses Group in-built pygame class
-        updatable.update(dt) # added by feature-group branch, to be reviewed 
+        updatable.update(dt) # added by feature-group branch, to be reviewed
+
+        # Checks if has collision between player object and asteroid object 
+        for a in asteroids:
+            if a.collides_with(player_instance):
+                # Logs a collision and terminates the loop
+                log_event("player_hit") # logs if the player object is hit (game_events.jsonl)
+                print("Game Over!") # displays a feedback on the game fail state
+                sys.exit() # exits the game on fail state
+
         screen.fill("black") # clears the trail from past frames
-        # asteroidfield.AsteroidField()
+        
         # Renders the player on the screen each frame, iterates over Group in-built pygame class 
         for d in drawable:
             d.draw(screen)
         pygame.display.flip() # displays a window with values declared into 'constats.py'
+        
         # Event Handling and Logging
         log_state() # adds and prints a log file, added by lesson updates at boot.dev
+        
         # Makes the window close button work
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

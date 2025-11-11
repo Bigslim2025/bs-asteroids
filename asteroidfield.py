@@ -1,4 +1,5 @@
-# Code copied and pasted by the instructor 
+# Pasted from boot.dev 'Build Asteroids using Python' - CH4L1
+# Code below not touched by the pupil
 
 import pygame
 import random

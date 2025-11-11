@@ -1,4 +1,5 @@
-# Code copied and pasted by the instructor 
+# Pasted from boot.dev 'Build Asteroids using Python' - CH2L2
+# Code below not touched by the pupil
 
 import inspect
 import json
