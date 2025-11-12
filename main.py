@@ -50,6 +50,14 @@ def main():
         # Hooks the update method into the loop, uses Group in-built pygame class
         updatable.update(dt) # added by feature-group branch, to be reviewed
 
+        # Kills the asteroid and the "bullet"
+        for a in asteroids: 
+            for s in shots:
+                if s.collides_with(a):
+                    log_event("asteroid_shot") # logs if the asteroid object is shot (game_events.jsonl)
+                    pygame.sprite.Sprite.kill(a) # kills asteroid
+                    pygame.sprite.Sprite.kill(s) # kills "bullet"
+
         # Checks if has collision between player object and asteroid object 
         for a in asteroids:
             if a.collides_with(player_instance):
