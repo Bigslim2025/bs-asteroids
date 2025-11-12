@@ -4,6 +4,7 @@ import pygame # imports pygame module
 import constants # imports constants module
 import player # imports player module
 import asteroid # imports asteroid object module
+import shot # imports shot object module
 import asteroidfield # asteroid field module
 from logger import log_state
 from logger import log_event
@@ -18,12 +19,16 @@ def main():
     updatable = pygame.sprite.Group() # updatable objects are conteinarased here
     drawable = pygame.sprite.Group() # drawable objects are conteinerised here
     asteroids = pygame.sprite.Group() # asteroids objects are conteinerised here
+    shots = pygame.sprite.Group() # shots objects are conteinerised here
 
     # Adds instances of the Asteroid Field in the 'updatable' gorup
     asteroidfield.AsteroidField.containers = (updatable) 
 
     # Adds instances of the Asteroids in the 'updatable', 'drawable' and 'asteroid' gorup
     asteroid.Asteroid.containers = (asteroids, updatable, drawable)
+
+    # Adds instances of the Shots in the 'updatable', 'drawable' and 'asteroid' group
+    shot.Shot.containers = (shots, drawable, updatable)
     
     # Adds instances of a Player in the groups 'updatable' and 'drawable'
     player.Player.containers = (updatable, drawable) # module.Class.function (try to remember!)

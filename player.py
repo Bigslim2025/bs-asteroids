@@ -1,11 +1,13 @@
 import pygame
 import constants
 from circleshape import CircleShape
+import shot
 
 class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, constants.PLAYER_RADIUS)
         self.rotation = 0
+        self.cooldown = 0
 
     # Snippet imported from boot.dev 'Build Asteroids using Python' - CH2L5
     # in the player class
@@ -16,9 +18,15 @@ class Player(CircleShape):
         b = self.position - forward * self.radius - right
         c = self.position - forward * self.radius + right
         return [a, b, c]
-
+    
+    def shoot(self):
+        if self.cooldown <= 0:
+            new_shot = shot.Shot(self.position.x, self.position.y, constants.SHOT_RADIUS)
+            new_shot.velocity = shot.pygame.Vector2(0, 1).rotate(self.rotation) * constants.PLAYER_SHOOT_SPEED        
+            self.cooldown = constants.PLAYER_SHOOT_COOLDOWN_SECONDS  # start cooldown, by Boots
+    
     def draw(self, screen):
-        # sub-classes must override
+        # Overwritten from Parent Class
         pygame.draw.polygon(screen, pygame.Color("White"), self.triangle(), 2)
 
     def rotate(self, dt):
@@ -32,7 +40,8 @@ class Player(CircleShape):
         self.position += forward * constants.PLAYER_SPEED * dt # updates position on screen
 
     def update(self, dt):
-        # sub-classes must override
+        # Overwritten from Parent Class
+        self.cooldown = max(0, self.cooldown - dt)  # decrement and clamp, by Boots
         keys = pygame.key.get_pressed()
         # Maps the keys, using pygame module defaults
         if keys[pygame.K_a]:
@@ -43,3 +52,5 @@ class Player(CircleShape):
             self.move(dt)
         if keys[pygame.K_s]:
             self.move(-dt)
+        if keys[pygame.K_SPACE]:
+            self.shoot()
