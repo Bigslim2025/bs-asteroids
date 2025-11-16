@@ -51,12 +51,12 @@ def main():
         updatable.update(dt) # added by feature-group branch, to be reviewed
 
         # Kills the asteroid and the "bullet"
-        for a in asteroids: 
-            for s in shots:
-                if s.collides_with(a):
+        for s in shots: 
+            for a in asteroids:
+                if a.collides_with(s):
                     log_event("asteroid_shot") # logs if the asteroid object is shot (game_events.jsonl)
-                    pygame.sprite.Sprite.kill(a) # kills asteroid
-                    pygame.sprite.Sprite.kill(s) # kills "bullet"
+                    s.kill() # kills asteroid
+                    a.split() # splits asteroid when not killed
 
         # Checks if has collision between player object and asteroid object 
         for a in asteroids:
